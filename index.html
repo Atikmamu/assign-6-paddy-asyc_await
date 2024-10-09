@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Assignment 6</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- font awesome CDN -->
+    <script src="https://kit.fontawesome.com/76cd2238bf.js" crossorigin="anonymous"></script>
+
     <!-- daisyUI and Tailwind CDN link -->
     <link
       href="https://cdn.jsdelivr.net/npm/daisyui@4.12.12/dist/full.min.css"
@@ -11,22 +15,214 @@
       type="text/css"
     />
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#0E7A81",
+            },
+          },
+        },
+      };
+    </script>
   </head>
   <body>
-    <header>
-      <nav>
+    <!-- navbar section -->
+     
+    <nav class="container mx-auto w-11/12 lg:w-10/12">
+      <div class="navbar bg-base-100">
+        <div class="navbar-start">
+          <div class="flex gap-3">
+            <img src="./images/logo.webp">
+            <h1 class="font-bold text-3xl">Peddy
+            </h1>
+          </div>
+          
+        </div>
+        <div class="navbar-center gap-8 md:flex hidden lg:flex">
+          <p>Home</p>
+          <p>Shop</p>
+          <p>Contact</p>
+        </div>
+        <div class="navbar-end">
+          <i class="fa-regular fa-user hidden md:flex lg:flex"></i>
+        </div>
 
-      </nav>
-    </header>
-
-    <body>
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="btn btn-ghost md:hidden lg:hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h8m-8 6h16"
+              />
+            </svg>
+          </div>
+          <ul
+            tabindex="0"
+            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-36 p-2 shadow"
+          >
+            <li><a>Home</a></li>
+            <li><a>Shop</a></li>
+            <li><a>Contact</a></li>
+            <i class="fa-regular fa-user ml-4"></i>
+          </ul>
+        </div>
+      </div>
+    </div>
+      </div>
+    </nav>
+  
+        <!-- Banner section -->
       <main>
-        <h1>Hello world</h1>
+         <!-- Adoption starts Here -->
+        <section>
+          <div class="card-body items-center text-center">
+            <div class="flex gap-1 mb-1">
+              <p class="text-lg font-semibold text-gray-600">Bringing Families Together</p>
+              <img class="w-7" src="./images/fire.png">
+            </div>
+            <h1
+              class="card-title font-bold text-2xl md:text-4xl lg:text-5xl mb-6 max-w-4xl mx-auto text-[#131313]"
+            >
+              Your Path to Adoption <br> Starts Here
+            </h1>
+            <p class="font-medium text-[#131313] mb-6 max-w-3xl mx-auto">
+              Start your adoption journey with expert care support. We guide you through <br> each step, ensuring an informed process as you build your family.
+            </p>
+            <div class="card-actions">
+              <a class="btn bg-primary text-[#FFFFFF] font-semibold text-lg rounded-xl px-6 py-4 pt-2" href="#all-pets-show">
+                View More
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto flex justify-center">
+          <div>
+            <img src="./images/pet.webp"/>
+          </div>
+        </section>
+
+           <!-- Adopt your best friend section -->
+        <section class="py-16 container mx-auto w-11/12 lg:w-10/12 my-12 lg:my-24">
+          <div class="card-body items-center text-center">
+            <h1
+              class="card-title font-bold text-2xl md:text-4xl lg:text-5xl mb-6 max-w-4xl mx-auto text-[#131313]"
+            id="Adopt-your-best-friend">
+              Adopt Your Best Friend
+            </h1>
+            <p class="font-medium text-gray-700 mb-6 max-w-3xl mx-auto">
+              Find your perfect companion through adoption.Open your heart companion. <br> Give a loving home to a pet in need and gain a loyal friend for life.
+            </p>
+          </div>
+
+          <!-- Category dynamic button section -->
+         <div id="categories" class="mb-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 container mx-auto w-11/12 lg:w-10/12"></div>
+
+         <!-- best Deal For you and sort section -->
+         <div class="flex justify-between container mx-auto w-11/12 lg:w-10/12 mb-3">
+          <p class="font-semibold text-lg">Best Deal For you</p>
+          <button id="sortByPriceBtn" class="btn btn-sm bg-primary text-[#FFFFFF]">Sort by Price</button>
+         </div>
+
+         <!-- All pet card section dynamically container left card-->
+         <div class="lg:flex gap-2">
+         <div id="all-pets-show" class="grid grid-cols-1 lg:grid-cols-3 gap-2 py-5 w-[70%]"></div>
+
+         <!-- dynamically content right card-->
+         <div id="like-cards" class="w-[30%] grid grid-cols-2 border rounded xl bg-[#F3F3F5]">
+
+          </div>
+
+         </div>
+
+        </section>
       </main>
-    </body>
 
-    <footer>
+      
 
-    </footer>
-  </body>
+    
+        <!-- Open the modal using ID.showModal() method -->
+<button class="btn hidden" onclick="customModal.showModal()">open modal</button>
+<dialog id="customModal" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <div id="modal-content"></div>
+    <div class="modal-action">
+      <form method="dialog">
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn">close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+
+
+         <!-- footer section -->
+
+         <footer class="footer bg-[#131313] text-[#FFFFFFE6] flex-row md:justify-evenly lg:justify-evenly py-8">
+          
+            <nav class="lg:justify-self-start md:justify-self-center justify-self-center">
+              <div class="flex gap-3 pb-3">
+                <img src="./images/logo.webp">
+                <h1 class="font-bold text-3xl text-[#FFFFFF]">Peddy</h1>
+              </div>
+              
+              <a class="link link-hover">Location: av. Washington 165, NY CA</a>
+              <a class="link link-hover">54003</a>
+              <a class="link link-hover">Phone: +31 85 964 47 25</a>
+              <a class="link link-hover">Email: info@yourdomain.com</a>
+              <a class="link link-hover">Openings hours: 9.00 AM - 5.00 PM</a>
+              
+              <div class="gap-4 md:flex hidden lg:flex">
+                <img src="./images/facebook.svg">
+                <img src="./images/twiter.svg">
+                <img src="./images/youtube.svg">
+                <img src="./images/instagram.svg">
+              </div>
+            </nav>
+
+            <nav class="lg:justify-self-start md:justify-self-center justify-self-center mr-32">
+              <a class="text-[#FFFFFF] text-lg font-semibold">Useful Links</a>
+              <a class="link link-hover text-gray-400">Home</a>
+              <a class="link link-hover text-gray-400">About us</a>
+              <a class="link link-hover text-gray-400">Animals</a>
+              <a class="link link-hover text-gray-400">Foundation</a>
+              <a class="link link-hover text-gray-400">Contact</a>
+            </nav>
+
+
+            <nav class="lg:justify-self-start md:justify-self-center justify-self-center">
+              <h3 class="text-[#FFFFFF] text-lg font-semibold mb-1">Drop a Message</h3>
+              <input type="email" placeholder="Enter your email" class="bg-[#FFFFFF0D] py-3 mb-3 px-7 rounded-lg">
+              <button class="btn px-20 py-3 bg-primary rounded-lg border-primary text-[#FFFFFF] mb-3">Subscribe</button>
+              
+            </nav>
+          </footer>
+          <footer class="footer bg-[#131313] text-[#FFFFFFE6] pb-8 md:hidden lg:hidden">
+            
+            <nav class="md:place-self-center lg:justify-self-start md:justify-self-center justify-self-center">
+              <div class="grid grid-flow-col gap-4">
+                <img src="./images/facebook.svg">
+                <img src="./images/twiter.svg">
+                <img src="./images/youtube.svg">
+                <img src="./images/instagram.svg">
+              </div>
+            </nav>
+          </footer>
+
+           <script src="script/index.js"></script>
+
+
+        </body>
 </html>
