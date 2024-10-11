@@ -20,4 +20,4 @@ This project is a responsive web application for adopting pets. It features dyna
 ## Live Link
 - **Deployed git-hub-Repo link: https://github.com/programming-hero-web-course2/b10a6-pet-adoption-Atikmamu
 
-- **Deployed Project: 
+- **Deployed Project: https://wondrous-fudge-8b54a6.netlify.app/#all-pets-show
