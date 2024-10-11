@@ -7,6 +7,24 @@ const loadAllPets = async () => {
   displayAllPets(data.pets);
 };
 
+
+// like button function
+const likeButton = (image) => {
+  console.log(image);
+
+  const likeContainer = document.getElementById("like-cards");
+  const likeCard = document.createElement("div");
+
+  likeCard.innerHTML = `
+    <div class="p-1 h-[150px]">
+    <image src=${image}/>
+       
+        </div>
+    `;
+    console.log(likeCard)
+  likeContainer.appendChild(likeCard);
+};
+
 // Active Btn function
 
 const loadCategoryPets = (id) => {
@@ -16,18 +34,32 @@ const loadCategoryPets = (id) => {
       const activeBtn = document.getElementById(`btn-${id}`);
       // all class ka activeBtn remove kora
       removeActiveClass();
-
       // all button ka activeBtn button dawa
       activeBtn.classList.add("active");
+
+
+      
       displayAllPets(data.data);
     })
     .catch((error) => console.log(error));
 };
 
+loadCategoryPets();
+
+
+
+
+
+
 const removeActiveClass = () => {
 const buttons = document.getElementsByClassName("category-btn");
 console.log(buttons);
+for (let btn of buttons) {
+  btn.classList.remove("active");
+}
 };
+
+
 
 const loadDetails = async (petId) => {
   const uri = `https://openapi.programming-hero.com/api/peddy/pet/${petId}`;
@@ -75,6 +107,7 @@ const displayDetails = (pet) => {
 
 // create DisplayCategories function
 const displayAllPets = (pets) => {
+  console.log('hello');
   const allPetsContainer = document.getElementById("all-pets-show");
   allPetsContainer.innerHTML = "";
 
@@ -117,8 +150,8 @@ const displayAllPets = (pets) => {
     <hr class="mt-3 mb-3"/>
     
     <div class="card-actions flex justify-evenly">
-      <button class="btn text-xl"><i class="fa-regular fa-thumbs-up"></i></button>
-      <button onclick="likeButton" class="btn text-primary font-bold text-lg">Adopt</button>
+      <button onclick="likeButton('${pet.image}')" class="btn text-xl"><i class="fa-regular fa-thumbs-up"></i></button>
+      <button onclick="displayAdoptModals()" class="btn text-primary font-bold text-lg">Adopt</button>
       <button onclick="loadDetails(${
         pet.petId
       })" class="btn text-primary font-bold text-lg">Details</button>
@@ -130,20 +163,136 @@ const displayAllPets = (pets) => {
   });
 };
 
-// like button function
-const likeButton = () => {
-  console.log("like button clicked");
 
-  const likeContainer = document.getElementById("like-cards");
-  const likeCard = document.createElement("div");
+// display Adopt Modal 
 
-  likeCard.innerHTML = `
-    <div class="p-1">
-        <img src="./images/pet.webp"/>
-        </div>
-    `;
-  likeContainer.append(likeCard);
+const displayAdoptModals = (petModal) => {
+  
+
+  const adoptContainer = document.getElementById("modal-content");
+  adoptContainer.innerHTML = `
+  <div class="flex flex-col justify-center items-center mb-6">
+    <img class="flex justify-center" src="https://img.icons8.com/?size=100&id=q6BlPrJZmxHV&format=png&color=000000">
+    <h2 class="text-center text-4xl font-extrabold py-6">Congrats</h2>
+    <p class="text-center">Adoption Process is Start For your pet</p>
+    <p id="countdown" onclick="startCountDown()" class="text-3xl font-black pt-8">3</p>
+  </div>
+  `;
+
+  // Show the modal dialog
+  document.getElementById("customModal").showModal();
 };
+
+function startCountDown() {
+  let num = 3;
+  const clockId = setInterval( ()=> {
+    num--;
+  
+    if(num > 0) {
+      clearInterval(clockId);
+    }
+    console.log(clockId, num)
+  })
+}
+
+
+// function startCountDown(button) {
+//   let countdown = 3;  
+//   button.disabled = true;  
+//   button.innerText = `Adopting in ${countdown}`;  
+
+ 
+//   const interval = setInterval(() => {
+//     countdown--;  
+//     if (countdown > 0) {
+//       button.innerText = `Adopting in ${countdown}`;  
+//     } else {
+//       clearInterval(interval);  
+     
+//     }
+//   }, 1000);  
+// }
+
+
+// function showModal() {
+//   const myModal = document.getElementById("myModal").style.display = "block";
+//   myModal.innerHTML = `
+//   <div class="flex flex-col justify-center items-center mb-6">
+//     <img class="flex justify-center" src="https://img.icons8.com/?size=100&id=q6BlPrJZmxHV&format=png&color=000000">
+//     <h2 class="text-center text-4xl font-extrabold py-6">Congrats</h2>
+//     <p class="text-center">Adoption Process is Start For your pet</p>
+//     <p id="countdown" onclick="startCountDown" class="text-3xl font-black pt-8">Countdown: 3</p>
+//   </div>
+//   `;
+ 
+//   setTimeout(() => {
+//     document.getElementById("cancelButton").click(); 
+//   }, 3000); 
+// }
+
+
+// document.getElementById("cancelButton").addEventListener("click", function() {
+//   document.getElementById("myModal").style.display = "none";  
+// });
+
+
+// showModal();
+
+
+
+
+
+// spinner setTimeout 
+
+const handleSearch = (pets) => {
+  document.getElementById("spinner").style.display ="none";
+  
+
+  setTimeout (() => {
+    fetch(`https://openapi.programming-hero.com/api/peddy/category/${pets}`)
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById("loadingSpinner").style.display ='none';
+      displayAllPets(data.data);
+    })
+    .catch(error => {
+      console.error('error', error);
+      document.getElementById("loadingSpinner").style.display ='block'
+    })
+  }, 2000);
+};
+
+
+
+// const loadButtonSpinner = () => {
+//   console.log('wow 3 second gone');
+//   document.getElementById("spinner").style.display ="none";
+// }
+
+// const handleSpinner = () => {
+//       document.getElementById("spinner").style.display ="block";
+
+//   setTimeout(function () {
+//     loadButtonSpinner()
+//   }, 3000)
+// }
+
+
+// const displayPets = (pets) => {
+//   const content = document.getElementById("content");
+//   content.innerHTML = ''; 
+//   pets.forEach(pet => {
+//     const petElement = document.createElement("div");
+//     petElement.innerHTML = `<p>${pets.data}</p>`;
+//     content.appendChild(petElement);
+//   });
+// };
+
+
+// handleSearch()
+
+
+
 
 //   Create loadPetsCategory function
 const loadPetsCategory = async () => {
@@ -163,9 +312,9 @@ const displayPetsCategory = (categories) => {
 
     const buttonContainer = document.createElement("div");
     buttonContainer.classList =
-      "btn btn btn-lg py-10 rounded-2xl my-6 mx-6 p-6 flex justify-center items-center";
+      "py-10 rounded-2xl my-6 mx-6 p-6 flex justify-center items-center";
     buttonContainer.innerHTML = `
-                <button id="btn-${item.category}" onclick="loadCategoryPets('${item.category}')" class="flex gap-5 justify-center items-center -mt-6 category-btn">
+                <button id="btn-${item.category}" onclick="loadCategoryPets('${item.category}')" class="btn btn btn-lg flex gap-5 justify-center items-center -mt-6 category-btn">
                 ${item.category}
                 <img class="" src="${item.category_icon}"/>
                 </button>
@@ -175,6 +324,8 @@ const displayPetsCategory = (categories) => {
     categoryContainer.appendChild(buttonContainer);
   });
 };
+
+
 
 loadAllPets();
 

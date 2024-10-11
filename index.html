@@ -5,31 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Assignment 6</title>
 
-    <!-- spinner styles -->
-    <style>
-      /* Spinner styles */
-      #spinner {
-        display: none;
-        width: 40px;
-        height: 40px;
-        border: 4px solid rgba(0, 0, 0, 0.1);
-        border-top: 4px solid #000;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin: 20px auto;
-      }
-
-      /* Spinner animation */
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
-
     <link rel="stylesheet" href="style.css">
     <!-- font awesome CDN -->
     <script src="https://kit.fontawesome.com/76cd2238bf.js" crossorigin="anonymous"></script>
@@ -161,12 +136,23 @@
           <button id="sortByPriceBtn" class="btn btn-sm bg-primary text-[#FFFFFF]">Sort by Price</button>
          </div>
 
+         <!-- adopt button container modal -->
+         <div id="adopt-modal-content"></div>
+
+
+
+         <!-- spinner -->
+        <div id="spinner" class="hidden">
+          <div class="loading loading-bars loading loading-spinner" id="content">
+          </div>
+        </div>
+
          <!-- All pet card section dynamically container left card-->
          <div class="lg:flex gap-2">
          <div id="all-pets-show" class="grid grid-cols-1 lg:grid-cols-3 gap-2 py-5 w-[70%]"></div>
 
          <!-- dynamically content right card-->
-         <div id="like-cards" class="w-[30%] grid grid-cols-2 border rounded xl bg-[#F3F3F5]">
+         <div id="like-cards" class="w-[30%] grid grid-cols-2 border rounded xl bg-[#F3F3F5] h-fit">
 
           </div>
 
@@ -176,22 +162,22 @@
       </main>
 
       
-
-    
-        <!-- Open the modal using ID.showModal() method -->
+      <!-- Open the modal using ID.showModal() method -->
 <button class="btn hidden" onclick="customModal.showModal()">open modal</button>
 <dialog id="customModal" class="modal modal-bottom sm:modal-middle">
-  <div class="modal-box">
-    <div id="modal-content"></div>
-    <div class="modal-action">
-      <form method="dialog">
-        <!-- if there is a button in form, it will close the modal -->
-        <button class="btn">close</button>
-      </form>
-    </div>
+<div class="modal-box">
+  <div id="modal-content"></div>
+  <div class="modal-action">
+    <form method="dialog">
+      <!-- if there is a button in form, it will close the modal -->
+      <button id="cancelButton" class="btn">close</button>
+    </form>
   </div>
+</div>
 </dialog>
 
+
+  
 
 
          <!-- footer section -->
@@ -252,7 +238,6 @@
 
         </body>
 </html>
-
 
 
 
